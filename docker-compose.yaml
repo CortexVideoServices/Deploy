@@ -1,0 +1,13 @@
+version: '3.2'
+
+services:
+
+  janus-gateway:
+    image: cvs/janus-gateway
+    build:
+      context: ./docker/janus-gateway
+    container_name: cvs-janus-gateway
+    command: janus
+    network_mode: host
+#    restart: always
+
