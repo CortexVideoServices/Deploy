@@ -6,5 +6,5 @@ RUN apt-get -y update
 RUN apt-get install -y \
     janus
 
-EXPOSE 8088
-EXPOSE 8188
+#EXPOSE 8088
+#EXPOSE 8188

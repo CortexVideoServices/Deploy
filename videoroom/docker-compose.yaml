@@ -1,0 +1,28 @@
+version: '3.2'
+
+services:
+
+  janus:
+    image: cvs/base-janus
+    container_name: cvs-janus
+    command: janus
+    network_mode: host
+
+  nginx:
+    build:
+      context: ../../Web
+      dockerfile: ../Deploy/videoroom/nginx/Dockerfile
+    image: cvs/videoroom-nginx
+    container_name: cvs-videoroom-nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx/default.nginx:/etc/nginx/sites-enabled/default
+
+  videoroom:
+    image: cvs/videoroom
+    build:
+      context: ../../Backend/
+      dockerfile: ../Deploy/videoroom/backend/Dockerfile
+    container_name: cvs-videoroom
+    command: python -m videoroom.backend
