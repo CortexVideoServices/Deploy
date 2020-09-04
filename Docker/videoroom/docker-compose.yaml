@@ -11,18 +11,18 @@ services:
   nginx:
     build:
       context: ../../Web
-      dockerfile: ../Deploy/videoroom/nginx/Dockerfile
+      dockerfile: ../Docker/videoroom/nginx.Dockerfile
     image: cvs/videoroom-nginx
     container_name: cvs-videoroom-nginx
     ports:
       - 80:80
     volumes:
-      - ./nginx/default.nginx:/etc/nginx/sites-enabled/default
+      - ./default.nginx:/etc/nginx/sites-enabled/default
 
   videoroom:
     image: cvs/videoroom
     build:
-      context: ../../Backend/
-      dockerfile: ../Deploy/videoroom/backend/Dockerfile
+      context: ../../Backend
+      dockerfile: ../Docker/videoroom/backend.Dockerfile
     container_name: cvs-videoroom
     command: python -m videoroom.backend

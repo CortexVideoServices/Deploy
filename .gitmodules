@@ -1,0 +1,6 @@
+[submodule "Web"]
+	path = Web
+	url = git@github.com:CortexVideoServices/Web.git
+[submodule "Backend"]
+	path = Backend
+	url = git@github.com:CortexVideoServices/Backend.git
