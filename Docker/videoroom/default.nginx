@@ -1,7 +1,0 @@
-server {
-    listen 80;
-    location /backend/ {
-        proxy_pass http://videoroom:5000/;
-        proxy_set_header X-Real-IP $remote_addr;
-    }
-}

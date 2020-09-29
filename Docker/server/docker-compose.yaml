@@ -1,0 +1,52 @@
+version: '3.2'
+
+networks:
+  cvs:
+    external: true
+
+volumes:
+  pgdata_cvs: {}
+
+services:
+
+  janus:
+    image: cvs/janus
+    build: janus
+    container_name: cvs-janus
+    command: janus
+      #    network_mode: host
+    networks:
+      - cvs
+    restart: always
+
+#  postgres:
+#    image: cvs/postgres
+#    build: postgres
+#    container_name: cvs-postgres
+#    environment:
+#      - POSTGRES_DB=cvs
+#      - POSTGRES_USER=postgres
+#      - POSTGRES_PASSWORD=123456
+#    networks:
+#      - cvs
+#    restart: always
+#    volumes:
+#      - pgdata_cvs:/var/lib/postgresql/data
+#    ports:
+#      - 5432:5432
+
+  server:
+    image: cvs/base-python
+    container_name: cvs-server
+    environment:
+      - JANUS_WS=ws://janus:8188/janus-ws
+      - BACKEND_PORT=5000
+      - BACKEND_API_URI=/api
+      - BACKEND_WS_URI=/ws
+      - DEBUG
+    command: python -m cvs.server
+    ports:
+      - 5000:5000
+    networks:
+      - cvs
+    restart: always

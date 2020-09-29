@@ -1,0 +1,9 @@
+server {
+
+    listen 80;
+    include /etc/nginx/servername;
+    include /etc/nginx/ssl_settings;
+    include /etc/nginx/log_settings;
+    include /etc/nginx/cvs_settings;
+    include /etc/nginx/app_settings;
+}

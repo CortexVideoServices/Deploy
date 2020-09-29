@@ -1,28 +1,39 @@
 version: '3.2'
 
+networks:
+  cvs:
+    external: true
+
 services:
 
-  janus:
-    image: cvs/base-janus
-    container_name: cvs-janus
-    command: janus
-    network_mode: host
-
-  nginx:
+  frontend-builder:
     build:
       context: ../../Web
-      dockerfile: ../Docker/videoroom/nginx.Dockerfile
-    image: cvs/videoroom-nginx
-    container_name: cvs-videoroom-nginx
-    ports:
-      - 80:80
-    volumes:
-      - ./default.nginx:/etc/nginx/sites-enabled/default
+      dockerfile: ../Docker/videoroom/builder.Dockerfile
+    image: videoroom/frontend-builder
+    container_name: videoroom-frontend-builder
 
-  videoroom:
-    image: cvs/videoroom
+  backend:
+    image: cvs/videoroom-backend
     build:
       context: ../../Backend
       dockerfile: ../Docker/videoroom/backend.Dockerfile
-    container_name: cvs-videoroom
-    command: python -m videoroom.backend
+    container_name: videoroom-backend
+    command: python -m videoroom
+    ports:
+      - 8000:8000
+    networks:
+      - cvs
+
+  frontend:
+    build:
+      context: ./
+      dockerfile: ./frontend.Dockerfile
+    image: cvs/videoroom-frontend
+    container_name: videoroom-frontend
+    command: nginx
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - cvs
