@@ -2,3 +2,7 @@
     ssl_certificate /etc/nginx/ssl/fullchain.pem;
     ssl_certificate_key /etc/nginx/ssl/privkey.pem;
     proxy_set_header HTTPS \$http_https;
+
+    if ($scheme = http) {
+        return 301 https://$host$request_uri;
+    }

@@ -13,11 +13,12 @@ services:
     image: cvs/janus
     build: janus
     container_name: cvs-janus
-    command: janus
-      #    network_mode: host
+    command: janus -1 ${PUBLIC_IP}
     networks:
       - cvs
     restart: always
+    ports:
+      - 10000-10200:10000-10200/udp
 
 #  postgres:
 #    image: cvs/postgres

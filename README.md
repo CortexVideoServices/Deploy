@@ -3,25 +3,26 @@ In this repository, you can find the Dockerfile and docker-compose files
 to help you deploy sample applications. It can also be a good example for 
 your own application based on the Cortex Video Services.
 
-### Before build images
-Before building docker images, you need to pull the latest versions of 
-the submodules. Just run command:
+### Deploy application on your own server
+If you don't have the ssh key of your github account on that server, you need 
+to create a file `~/.getconfig` with this lines:
 
+    [url "https://github.com/"]
+    insteadOf = git@github.com:
+
+Then you need to clone the repository on your server to some folder. example:
+
+    git clone https://github.com/CortexVideoServices/Deploy.git ./cvs
+    cd ./cvs
+    git submodule init
     git submodule update --remote
-
-### Build docker images
-You need to build docker images with docker-compose. Run the following 
-command to create an image to run on localhost.
-
-    docker-compose -f Docker/bases/docker-compose.yaml build
-    docker-compose -f Docker/server/docker-compose.yaml build
-    docker-compose -f Docker/videoroom/docker-compose.yaml build
-
+    
 In order for the build images to run on a real server, you need: the 
 associated hostname, the associated SSL certificate and its private key, 
-stored in the PEM file. The certificate file must contain the complete 
-certificate chain. Create a docker-compose override file with this 
-information, for example mine named base.prod.yaml something like this:
+stored in the PEM file. The certificate file must contain [the complete 
+certificate trust chain]. Create a docker-compose override file with this 
+information (fill sections: `SERVERNAME`, `FULLCHAIN_PEM`, `PRIVKEY_PEM`), 
+for example mine named **base.prod.yaml** something like this:
 ```yaml   
     version: '3.2'
     services:
@@ -87,10 +88,12 @@ to build PROD images.
     docker-compose -f Docker/bases/docker-compose.yaml -f bases.prod.yaml build
     docker-compose -f Docker/server/docker-compose.yaml build
     docker-compose -f Docker/videoroom/docker-compose.yaml build
+    docker network create cvs
 
-### Run docker images
-Just run the following commands to launch the docker images and start testing 
-the application.
+And just run the following command to launch the docker containers.
 
+    PUBLIC_IP=`hostname -I | awk '{print $1}'` \
     docker-compose -f Docker/server/docker-compose.yaml \
                    -f Docker/videoroom/docker-compose.yaml up -d
+
+[the complete certificate trust chain]: https://www.digicert.com/kb/ssl-support/pem-ssl-creation.htm
