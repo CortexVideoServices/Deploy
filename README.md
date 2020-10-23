@@ -1,9 +1,36 @@
-# Deployment tools
+Deployment tools
+================
 In this repository, you can find the Dockerfile and docker-compose files 
 to help you deploy sample applications. It can also be a good example for 
 your own application based on the Cortex Video Services.
 
+Get started
+-----------
+
+At first you need clone this repo:
+
+    git clone https://github.com/CortexVideoServices/Deploy.git ./cvs
+    cd ./cvs
+    git submodule init
+
+It contains repositories of other platform elements as git submodules that 
+are used to build the Docker images needed to deploy the application stack.
+Therefore, every time before building images, you need to update the submodules:
+
+    git submodule update --remote
+
+This repository contains a set of Dockerfiles for base images. They should 
+be build before building any other Docker images around platform. To do this, run 
+the following commands:
+
+    docker-compose -f base/docker-compose.yaml build
+
+
+
+------------------------------
+
 ### Deploy application on your own server
+**!!!SHOULD BE REFACTORED**
 If you don't have the ssh key of your github account on that server, you need 
 to create a file `~/.getconfig` with this lines:
 

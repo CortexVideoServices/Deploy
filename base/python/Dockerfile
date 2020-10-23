@@ -8,7 +8,3 @@ RUN apt install -y python3.8-minimal python3-pip python3-wheel
 RUN pip3 install --upgrade pip \
    && cd /usr/local/bin \
    && ln -s /usr/bin/python3 python
-
-WORKDIR /usr/src/cvs
-COPY  ./python .
-RUN python setup.py install

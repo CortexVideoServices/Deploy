@@ -10,9 +10,7 @@ services:
 
   base-python:
     image: cvs/base-python
-    build:
-      context: ../../Backend
-      dockerfile: ../Docker/bases/python/Dockerfile
+    build: python
     container_name: cvs-base-python
 
   base-nginx:

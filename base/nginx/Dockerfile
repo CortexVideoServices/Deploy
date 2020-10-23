@@ -19,9 +19,9 @@ COPY common.nginx /etc/nginx/sites-enabled/default
 RUN echo "\
     server_name $SERVERNAME;\n\
 " >> /etc/nginx/servername
-COPY ./ssl_settings.nginx /etc/nginx/ssl_settings
-COPY ./log_settings.nginx /etc/nginx/log_settings
-COPY ./cvs_settings.nginx /etc/nginx/cvs_settings
+COPY ssl_settings.nginx /etc/nginx/ssl_settings
+COPY log_settings.nginx /etc/nginx/log_settings
+COPY cvs_settings.nginx /etc/nginx/cvs_settings
 RUN echo "" >> /etc/nginx/app_settings
 
 RUN mkdir /etc/nginx/ssl

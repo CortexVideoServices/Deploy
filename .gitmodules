@@ -1,6 +1,9 @@
-[submodule "Web"]
-	path = Web
-	url = git@github.com:CortexVideoServices/Web.git
-[submodule "Backend"]
-	path = Backend
-	url = git@github.com:CortexVideoServices/Backend.git
+[submodule "others/Server"]
+	path = others/Server
+	url = https://github.com/CortexVideoServices/Server.git
+[submodule "others/VideoRoom"]
+	path = others/VideoRoom
+	url = https://github.com/CortexVideoServices/VideoRoom.git
+[submodule "others/Web"]
+	path = others/Web
+	url = https://github.com/CortexVideoServices/Web.git
