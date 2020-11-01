@@ -27,21 +27,23 @@ information (fill sections: `SERVERNAME`, `FULLCHAIN_PEM`, `PRIVKEY_PEM`),
 for example you can see [base.sample-prod.yaml].
 
 You also need to create the files `server.prod.yaml` and` videoroom.prod.yaml` 
-with your own parameters for connecting to the database, parameters for connecting 
-to the mailer and JWT key. An example of the contents of the files can be found in 
+with your own parameters for connecting to the database `POSTGRES_PASSWORD` and 
+`POSTGRES_DSN`, parameters for connecting to the mailer `MAILER` and JWT key 
+`JWT_SECRET`. An example of the contents of the files can be found in 
 [server.sample-prod.yaml], [videoroom.sample-prod.yaml].
 
-The next step is to build images:
+The next step is to build images and create network:
 
     docker-compose -f base/docker-compose.yaml -f base.prod.yaml build
     docker-compose -f others/Server/docker-compose.yaml -f server.prod.yaml build
-    docker-compose -f others/Server/docker-compose.yaml -f videoroom.prod.yaml build
+    docker-compose -f others/VideoRoom/docker-compose.yaml -f videoroom.prod.yaml build
+    docker network create cvs
 
 Then just run the following command to launch the docker containers.
 
     PUBLIC_IP=`hostname -I | awk '{print $1}'` \
-    docker-compose -f Docker/server/docker-compose.yaml \
-                   -f Docker/videoroom/docker-compose.yaml up -d
+    docker-compose -f others/Server/docker-compose.yaml up -d
+    docker-compose -f others/VideoRoom/docker-compose.yaml up -d
 
 [the complete certificate trust chain]: https://www.digicert.com/kb/ssl-support/pem-ssl-creation.htm
 [base.sample-prod.yaml]: ./base.sample-prod.yaml
