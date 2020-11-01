@@ -1,0 +1,12 @@
+version: '3.2'
+
+services:
+
+  backend:
+    build:
+      args:
+        - JWT_SECRET=SUPER_BUPPER_SECRET
+        - POSTGRES_DSN=postgresql://postgres:123456@postgres:5432/videoroom
+        - MAILER=smtp://cvs@spellsystems.com:123456@smtp.gmail.com?tls=y
+    ports:
+      - 7000:80
