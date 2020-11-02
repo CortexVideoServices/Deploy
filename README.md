@@ -26,10 +26,11 @@ certificate trust chain]. Create a docker-compose override file with this
 information (fill sections: `SERVERNAME`, `FULLCHAIN_PEM`, `PRIVKEY_PEM`), 
 for example you can see [base.sample-prod.yaml].
 
-You also need to create the files `server.prod.yaml` and` videoroom.prod.yaml` 
+You also need to create the files `server.prod.yaml` and `videoroom.prod.yaml` 
 with your own parameters for connecting to the database `POSTGRES_PASSWORD` and 
 `POSTGRES_DSN`, parameters for connecting to the mailer `MAILER` and JWT key 
-`JWT_SECRET`. An example of the contents of the files can be found in 
+`JWT_SECRET`, public IP address of server where running `janus-gateway` `PUBLIC_IP`. 
+An example of the contents of the files can be found in 
 [server.sample-prod.yaml], [videoroom.sample-prod.yaml].
 
 The next step is to build images and create network:
@@ -41,7 +42,6 @@ The next step is to build images and create network:
 
 Then just run the following command to launch the docker containers.
 
-    PUBLIC_IP=`hostname -I | awk '{print $1}'` \
     docker-compose -f others/Server/docker-compose.yaml up -d
     docker-compose -f others/VideoRoom/docker-compose.yaml up -d
 
