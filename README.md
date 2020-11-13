@@ -1,13 +1,13 @@
 Deployment tools
 ================
-In this repository, you can find the Dockerfile and docker-compose files 
-to help you deploy sample applications. It can also be a good example for 
+Please find the Dockerfile and docker-compose files 
+to help you deploy sample applications. It can be a good example upstart to understand and build 
 your own application based on the Cortex Video Services.
 
 Get started
 -----------
 
-At first you need clone this repo:
+Clone this repo:
 
     git clone https://github.com/CortexVideoServices/Deploy.git ./cvs
     cd ./cvs
